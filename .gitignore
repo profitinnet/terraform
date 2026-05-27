@@ -1,0 +1,10 @@
+.terraform/
+*.tfstate
+*.tfstate.*
+terraform.exe
+accessKey
+*.tfvars
+*.tfvars.json
+.terraform.lock.hcl
+accsessKey
+cert/
