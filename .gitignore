@@ -3,7 +3,7 @@
 *.tfstate.*
 terraform.exe
 accessKey
-*.tfvars
+*.secret.tfvars
 *.tfvars.json
 .terraform.lock.hcl
 accsessKey
