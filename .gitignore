@@ -8,3 +8,4 @@ accessKey
 .terraform.lock.hcl
 accsessKey
 cert/
+*.tfvars
