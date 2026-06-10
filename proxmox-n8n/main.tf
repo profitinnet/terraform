@@ -49,6 +49,10 @@ resource "proxmox_virtual_environment_vm" "n8n" {
     dedicated = 4096
   }
 
+  vga {
+    type = "std"
+  }
+
   disk {
     datastore_id = "data"
     interface    = "scsi0"
@@ -66,7 +70,9 @@ resource "proxmox_virtual_environment_vm" "n8n" {
 
     ip_config {
       ipv4 {
-        address = "dhcp"
+        #address = "dhcp"
+        address = "10.44.88.205/24"
+        gateway = "10.44.88.190"
       }
     }
   }

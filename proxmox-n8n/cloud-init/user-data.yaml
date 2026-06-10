@@ -3,9 +3,30 @@
 package_update: true
 package_upgrade: true
 
+users:
+  - name: legrey
+    groups: sudo
+    shell: /bin/bash
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    lock_passwd: false
+
+chpasswd:
+  expire: false
+  users:
+    - name: legrey
+      password: "12345678"
+      type: text
+
+ssh_pwauth: true
+
 packages:
   - qemu-guest-agent
+  - docker.io
+  - docker-compose-v2
 
 runcmd:
+  - systemctl enable --now ssh
   - systemctl enable qemu-guest-agent
   - systemctl start qemu-guest-agent
+  - systemctl enable --now docker
+  - mkdir -p /opt/n8n
