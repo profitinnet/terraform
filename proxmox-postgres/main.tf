@@ -14,7 +14,7 @@ provider "proxmox" {
   }
 }
 
-resource "proxmox_virtual_environment_file" "n8n_user_data" {
+resource "proxmox_virtual_environment_file" "postgres_user_data" {
   content_type = "snippets"
   datastore_id = "keystorage"
   node_name    = "shrek"
@@ -25,10 +25,10 @@ resource "proxmox_virtual_environment_file" "n8n_user_data" {
 }
 
 
-resource "proxmox_virtual_environment_vm" "n8n" {
-  name      = "n8n"
+resource "proxmox_virtual_environment_vm" "postgres" {
+  name      = "postgres"
   node_name = "shrek"
-  vm_id     = 202
+  vm_id     = 203
 
   clone {
     vm_id = 9000
@@ -41,12 +41,12 @@ resource "proxmox_virtual_environment_vm" "n8n" {
   }
 
   cpu {
-    cores = 6
+    cores = 2
     type  = "host"
   }
 
   memory {
-    dedicated = 8192
+    dedicated = 2048
   }
 
   vga {
@@ -61,7 +61,7 @@ resource "proxmox_virtual_environment_vm" "n8n" {
 
   initialization {
     datastore_id      = "local"
-    user_data_file_id = proxmox_virtual_environment_file.n8n_user_data.id
+    user_data_file_id = proxmox_virtual_environment_file.postgres_user_data.id
 
     user_account {
       username = "legrey"
@@ -70,8 +70,7 @@ resource "proxmox_virtual_environment_vm" "n8n" {
 
     ip_config {
       ipv4 {
-        #address = "dhcp"
-        address = "10.44.88.205/24"
+        address = "10.44.88.206/24"
         gateway = "10.44.88.190"
       }
     }
@@ -82,4 +81,3 @@ resource "proxmox_virtual_environment_vm" "n8n" {
     model  = "virtio"
   }
 }
-

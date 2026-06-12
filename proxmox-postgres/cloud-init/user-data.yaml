@@ -25,35 +25,29 @@ packages:
   - docker-compose-v2
 
 write_files:
-  - path: /opt/n8n/docker-compose.yml
+  - path: /opt/postgres/docker-compose.yml
     permissions: "0644"
     content: |
       services:
-        n8n:
-          image: n8nio/n8n:latest
+        postgres:
+          image: postgres:16
           restart: unless-stopped
           ports:
-            - "5678:5678"
+            - "5432:5432"
           environment:
-            - DB_TYPE=postgresdb
-            - DB_POSTGRESDB_HOST=10.44.88.206
-            - DB_POSTGRESDB_PORT=5432
-            - DB_POSTGRESDB_DATABASE=n8n
-            - DB_POSTGRESDB_USER=n8n
-            - DB_POSTGRESDB_PASSWORD=n8n_pass_123
-            - N8N_HOST=10.44.88.205
-            - N8N_PORT=5678
-            - N8N_PROTOCOL=http
-            - N8N_SECURE_COOKIE=false
+            - POSTGRES_DB=n8n
+            - POSTGRES_USER=n8n
+            - POSTGRES_PASSWORD=n8n_pass_123
             - TZ=Europe/Kyiv
           volumes:
-            - n8n_data:/home/node/.n8n
+            - postgres_data:/var/lib/postgresql/data
 
       volumes:
-        n8n_data:
+        postgres_data:
 
 runcmd:
   - systemctl enable --now ssh
   - systemctl enable --now qemu-guest-agent
   - systemctl enable --now docker
-  - docker compose -f /opt/n8n/docker-compose.yml up -d
+  - mkdir -p /opt/postgres
+  - docker compose -f /opt/postgres/docker-compose.yml up -d
