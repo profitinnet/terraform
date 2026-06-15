@@ -1,0 +1,59 @@
+#cloud-config
+
+package_update: true
+package_upgrade: true
+
+users:
+  - name: legrey
+    groups: sudo,docker
+    shell: /bin/bash
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    lock_passwd: false
+
+chpasswd:
+  expire: false
+  users:
+    - name: legrey
+      password: "12345678"
+      type: text
+
+ssh_pwauth: true
+
+packages:
+  - qemu-guest-agent
+  - docker.io
+  - docker-compose-v2
+
+write_files:
+  - path: /opt/n8n/docker-compose.yml
+    permissions: "0644"
+    content: |
+      services:
+        n8n:
+          image: n8nio/n8n:latest
+          restart: unless-stopped
+          ports:
+            - "5678:5678"
+          environment:
+            - DB_TYPE=postgresdb
+            - DB_POSTGRESDB_HOST=10.44.88.206
+            - DB_POSTGRESDB_PORT=5432
+            - DB_POSTGRESDB_DATABASE=n8n
+            - DB_POSTGRESDB_USER=n8n
+            - DB_POSTGRESDB_PASSWORD=n8n_pass_123
+            - N8N_HOST=10.44.88.205
+            - N8N_PORT=5678
+            - N8N_PROTOCOL=http
+            - N8N_SECURE_COOKIE=false
+            - TZ=Europe/Kyiv
+          volumes:
+            - n8n_data:/home/node/.n8n
+
+      volumes:
+        n8n_data:
+
+runcmd:
+  - systemctl enable --now ssh
+  - systemctl enable --now qemu-guest-agent
+  - systemctl enable --now docker
+  - docker compose -f /opt/n8n/docker-compose.yml up -d
