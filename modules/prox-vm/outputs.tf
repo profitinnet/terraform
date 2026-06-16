@@ -1,4 +1,11 @@
-output "vm_ip" {
-  value       = proxmox_virtual_environment_vm.this.network_device[0].ip_address
-  description = "IPv4 address of the VM"
+output "vm_name" {
+  value = proxmox_virtual_environment_vm.this.name
+}
+
+output "vm_id" {
+  value = proxmox_virtual_environment_vm.this.vm_id
+}
+
+output "ipv4_addresses" {
+  value = proxmox_virtual_environment_vm.this.ipv4_addresses
 }

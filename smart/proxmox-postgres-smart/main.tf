@@ -15,31 +15,17 @@ provider "proxmox" {
 }
 
 module "prox_vm_postgres" {
-  source = "../modules/prox-vm"
+  source = "../../modules/prox-vm"
 
   cloud_init_path      = "${path.module}/cloud-init/user-data.yaml"
   vm_node              = "smart"
-  vm_id                = 204
+  vm_id                = 203
   vm_name              = "postgres"
   vm_memory            = 4096
   vm_cpu_cores         = 2
   vm_disk_datastore_id = "storage"
   vm_disk_interface    = "scsi0"
   vm_disk_size         = 40
-  vm_ipv4_address      = "10.44.88.209/24"
+  vm_ipv4_address      = "10.44.88.208/24"
 }
 
-module "prox_vm_postgres" {
-  source = "../modules/prox-vm"
-
-  cloud_init_path      = "${path.module}/cloud-init/user-data.yaml"
-  vm_node              = "smart"
-  vm_id                = 204
-  vm_name              = "postgres"
-  vm_memory            = 4096
-  vm_cpu_cores         = 2
-  vm_disk_datastore_id = "storage"
-  vm_disk_interface    = "scsi0"
-  vm_disk_size         = 40
-  vm_ipv4_address      = "10.44.88.209/24"
-}

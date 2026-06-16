@@ -1,11 +1,11 @@
 output "postgres_ipv4_addresses" {
-  value = proxmox_virtual_environment_vm.postgres.ipv4_addresses
+  value = module.prox_vm_postgres.ipv4_addresses
 }
 
 output "postgres_name" {
-  value = proxmox_virtual_environment_vm.postgres.name
+  value = module.prox_vm_postgres.vm_name
 }
 
 output "postgres_vmid" {
-  value = proxmox_virtual_environment_vm.postgres.vm_id
+  value = module.prox_vm_postgres.vm_id
 }
