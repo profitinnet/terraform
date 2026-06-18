@@ -51,9 +51,3 @@ write_files:
 
       volumes:
         n8n_data:
-
-runcmd:
-  - systemctl enable --now ssh
-  - systemctl enable --now qemu-guest-agent
-  - systemctl enable --now docker
-  - docker compose -f /opt/n8n/docker-compose.yml up -d

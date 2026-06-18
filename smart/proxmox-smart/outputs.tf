@@ -1,11 +1,11 @@
 output "n8n_ipv4_addresses" {
-  value = proxmox_virtual_environment_vm.n8n.ipv4_addresses
+  value = module.prox-vm.ipv4_addresses
 }
 
 output "n8n_name" {
-  value = proxmox_virtual_environment_vm.n8n.name
+  value = module.prox-vm.vm_name
 }
 
 output "n8n_vmid" {
-  value = proxmox_virtual_environment_vm.n8n.vm_id
+  value = module.prox-vm.vm_id
 }

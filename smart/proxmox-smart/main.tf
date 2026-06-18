@@ -16,7 +16,7 @@ provider "proxmox" {
 
 
 module "prox-vm" {
-  source = "../modules/prox-vm"
+  source = "../../modules/prox-vm"
 
   cloud_init_path      = "${path.module}/cloud-init/user-data.yaml"
   vm_node              = "smart"
